@@ -123,12 +123,22 @@
                 opacity: 0;
             }
         }
+        #gif-container {
+            margin-top: 20px;
+        }
+
+        #gif-container img {
+            max-width: 300px;
+            max-height: 300px;
+        }
     </style>
 </head>
 <body>
 
 <h1>Anh sẽ là Valentine của em chứ? <span class="heart">❤️</span></h1>
-
+<div id="gif-container">
+    <img id="gif-image" src="" alt="Valentine GIF">
+</div>
 <div class="button-container">
     <button id="yes-button">Anh cóooo!</button>
     <button id="no-button">Hăm</button>
@@ -137,10 +147,56 @@
 <div id="message"></div>
 
 <script>
+    let knifeIntervalId;
+
+    function createFallingElement(elementClass, elementContent, containerClass, animationDurationMin, animationDurationMax) {
+        const element = document.createElement('div');
+        element.classList.add(elementClass);
+        element.textContent = elementContent;
+        document.querySelector(containerClass).appendChild(element);
+
+        // randomize horizontal position
+        element.style.left = Math.random() * 100 + 'vw';
+
+        // random animation duration
+        element.style.animationDuration = Math.random() * animationDurationMin + animationDurationMax + 's';
+
+        // murder the element after animation completes
+        element.addEventListener('animationend', () => element.remove());
+    }
+
+    // Create heart container
+    const heartContainer = document.createElement('div');
+    heartContainer.classList.add('heart-container');
+    document.body.appendChild(heartContainer);
+
+    function createHeart() {
+        createFallingElement('heart-raining', '❤️', '.heart-container', 2, 3);
+    }
+
+    function createKnife() {
+        createFallingElement('heart-raining', '🔪', '.heart-container', 2, 3);
+    }
     const yesButton = document.getElementById('yes-button');
     const noButton = document.getElementById('no-button');
     const messageDiv = document.getElementById('message');
-
+    const gifContainer = document.getElementById('gif-container');
+    const gifImage = document.getElementById('gif-image');
+    const gifs = [
+        "gifs/1.gif",
+        "gifs/2.gif",
+        "gifs/3.gif",
+        "gifs/4.gif",
+        "gifs/5.gif",
+        "gifs/6.gif",
+        "gifs/7.gif",
+        "gifs/8.gif",
+        "gifs/9.gif",
+        "gifs/10.gif"
+    ];
+    const initialGif = "gifs/0.gif";
+    const yesGif = "gifs/11.gif";
+    gifImage.src = initialGif;
     const noMessages = [
         "Anh chắc chưa đó hả? Em buồn đó! ",
         "Tim em vừa rớt bịch xuống đất luôn á, anh có biết hong?",
@@ -154,9 +210,6 @@
         "Muốn chết thiệt hả con chó??"
     ];
 
-    yesButton.addEventListener('click', () => {
-        messageDiv.textContent = "Hí hí em biết anh sẽ trả lời có mà :3 tối chở em đi chơi nhe 🥰";
-    });
 
     let clicked = 0;
 
@@ -172,6 +225,9 @@
         if (noSize < 20) {
             noSize = 20;
             if (clicked > 10) document.getElementById('no-button').style.display = "none";
+            if(!knifeIntervalId) {
+                knifeIntervalId = setInterval(createKnife, 50);
+            }
         }
 
         yesButton.style.fontSize = yesSize + 'px';
@@ -179,37 +235,22 @@
 
         if (clicked <= noMessages.length) {
             noButton.textContent = noMessages[clicked - 1];
+            gifImage.src = gifs[clicked-1];
         }
+
     });
 
 
 
-    function createHeart() {
-        const heart = document.createElement('div');
-        heart.classList.add('heart-raining');
-        heart.textContent = '❤️';
-        document.querySelector('.heart-container').appendChild(heart);
 
-        // randomize horizontal position
-        heart.style.left = Math.random() * 100 + 'vw';
-
-        // random animation duration
-        heart.style.animationDuration = Math.random() * 2 + 3 + 's'; //Between 3 and 5 seconds
-
-        // murder the heart after animation completes
-        heart.addEventListener('animationend', () => heart.remove());
-    }
-
-    //  heart container in Javascript to prevent rendering issues
-    const heartContainer = document.createElement('div');
-    heartContainer.classList.add('heart-container');
-    document.body.appendChild(heartContainer);
 
     // the hearts raining when Yes is clicked
     yesButton.addEventListener('click', () => {
         messageDiv.textContent = "Hí hí em biết anh sẽ trả lời có mà :3 tặng anh yêu một thanh socola nhé 🥰";
         // Call createHeart every 100 milliseconds
+        gifImage.src= yesGif;
         setInterval(createHeart, 100);
+        clearInterval(knifeIntervalId)
     });
 </script>
 </body>
