@@ -890,3 +890,107 @@ body {
         height: 140px;
     }
 }
+/* Enhanced Navbar Styling */
+.tech-navbar {
+    background-color: rgba(5, 7, 21, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 247, 255, 0.1);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.tech-navbar.scrolled {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    background-color: rgba(5, 7, 21, 0.95);
+}
+
+.navbar-brand {
+    font-weight: 700;
+}
+
+.navbar-title {
+    letter-spacing: 1px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+}
+
+.tech-navbar .nav-link {
+    color: var(--text-color);
+    position: relative;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 0.5rem 0;
+    margin: 0 0.5rem;
+}
+
+.tech-navbar .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, var(--primary-color), transparent);
+    transition: width 0.3s ease;
+}
+
+.tech-navbar .nav-link:hover::after,
+.tech-navbar .nav-link.active::after {
+    width: 100%;
+}
+
+.tech-navbar .nav-link:hover,
+.tech-navbar .nav-link.active {
+    color: var(--primary-color);
+}
+
+.navbar-dark .navbar-toggler {
+    border-color: transparent;
+}
+
+.navbar-dark .navbar-toggler:focus {
+    box-shadow: 0 0 0 0.1rem rgba(0, 247, 255, 0.5);
+}
+
+.navbar-dark .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 247, 255, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.nav-btn {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: rgba(0, 247, 255, 0.05);
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.nav-btn:hover {
+    background: var(--primary-color);
+    color: var(--darker-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
+}
+
+@media (max-width: 991.98px) {
+    .tech-navbar .nav-link {
+        padding: 0.75rem 0;
+    }
+
+    .tech-navbar .nav-link::after {
+        display: none;
+    }
+
+    .nav-btn {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+}
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/background.jpg");
+    background-size: cover;
+}
